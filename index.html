@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hilozen</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #fef8f4;
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin: 30px 0 10px;
+      color: #444;
+    }
+
+    canvas {
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+    }
+  </style>
+</head>
+<body>
+  <h1>hilozen</h1>
+  <canvas id="canvas" width="320" height="320"></canvas>
+
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    let drawing = false;
+
+    canvas.addEventListener("mousedown", (e) => {
+      drawing = true;
+      draw(e);
+    });
+
+    canvas.addEventListener("mousemove", draw);
+    canvas.addEventListener("mouseup", () => drawing = false);
+    canvas.addEventListener("mouseleave", () => drawing = false);
+
+    function draw(e) {
+      if (!drawing) return;
+
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      ctx.fillStyle = "#d48c8c";
+      ctx.beginPath();
+      ctx.arc(x, y, 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  </script>
+</body>
+</html>
